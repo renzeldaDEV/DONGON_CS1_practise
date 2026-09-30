@@ -77,6 +77,56 @@ mode(w)
 mode(v)
 ```
 
+```{r}
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+print(first_name)
+cat(last_name)
+```
+
+```{r}
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+full_name = paste (first_name, last_name)
+print(full_name)
+
+```
+
+```{r}
+paste0(first_name, last_name)
+paste (first_name, last_name, sep = "-")
+```
+
+```{r}
+age <- 21
+paste(full_name, "is", age, "years old.")
+```
+Question #7
+paste() adds a space between strings by default (sep = " "), while paste0() joins them with no space at all (sep = "").
+
+Question #8
+No, it did not cause an error. paste0() automatically converts non-string inputs (like the numeric age) into a string before combining them—this is an automatic type conversion (implicit coercion).
+
+
+
+```{r}
+"5" + 5
+```
+```{r}
+as.numeric("5") + 5
+```
+
+Question #9
+Its because r is very sensitive and strict for arithmetic operations.
+
+Question #10
+The column was likely read as text (character data type) instead of numeric data, so sum() failed. To diagnose this, check the data type using typeof() or class(). To fix it, convert the column to numbers using as.numeric() before taking the sum.
+
+Conclusion
+Things I learned about r is that variables are not declared but they can be transformed by using certain functions. Understanding typeof(), class() and some other functions is very important because this way we can check what are we trying to combine or write and most of all is to avoid Errors. In conclusion r is a very easy language with allot of tools and function to use for cleaner results and faster operations. 
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
