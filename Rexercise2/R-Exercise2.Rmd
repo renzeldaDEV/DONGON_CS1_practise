@@ -1,0 +1,98 @@
+---
+title: "My First MARKDOWN"
+author: "Renzel john Dongon"
+date: "2026-09-17"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Part A - Arithmetic Operations
+
+```{r}
+a <- 17
+b <- 5
+
+a+b
+a-b
+a*b
+a/b
+```
+```{r}
+a %% b
+a %/% b
+```
+
+```{r}
+2^10
+```
+
+Question #1:
+They relate by the same calculation but they differ by results.
+
+```{r}
+10 %% 3
+10 %/% 3
+```
+
+Question #2:
+I was only correct in the first part. The second I didn,t because it was kind of mixed up.
+
+## Part B - Basic Data Types
+
+```{r}
+x <- 42
+y <- 42L
+z <- "42"
+w <- TRUE
+v <- 3 + 21
+
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+
+x
+y
+z
+w
+v
+```
+```{r}
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+```
+```{r}
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
