@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## PART A - CReating VECTORS:
+## PART A - Creating Vectors:
 
 ```{r}
 scores <- c(88, 92, 79, 95, 84)
@@ -70,14 +70,166 @@ rep(c("A", "B"), times = 2)
 ```
 each repeats every individual element sequentially before moving to the next.
 times repeats the entire vector as a whole block.
-Would you like to see how these two arguments behave when they are combined together in a single function call?
 
+##Question #3
 ```{r}
 seq(1,2, by = 2) > seq(1, 20, length.out = 5)
 ```
 
+##Question #4
+
+#a
+```{r}
+vec_num <- 20:60
+```
+
+#b
+```{r}
+mean(vec_num)
+```
+
+#c
+```{r}
+length(vec_num)
+```
+
+##PART B - Subsetting (Accessing) Vectors:
+
+```{r}
+grades <- c(88, 92, 79, 95, 84)
+names(grades) <- c("Math", "Science", "English", "History", "PE")
+
+grades[3]
+grades[c(1, 4)]
+grades[c("Science", "PE")]
+```
+
+```{r}
+grades[-c(1, 4)]
+```
+
+```{r}
+grades[grades >= 85]
+```
+
+##Question #5
+Negative indexing removes an item at a specific, known spot (like using [-1] in R to drop the first entry), while logical indexing uses a rule to filter items based on a condition (like grades >= 75) no matter where they are located in your data.
+
+##Question #6
+```{r}
+grades[10]
+```
+R returns NA instead of an error because it treats indexing past the end of a vector as a request for missing data. Instead of stopping your code with a crash, R simply gives you a missing value placeholder (NA) so your script can keep running.
+
+##Question #7
+```{r}
+Filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100))
+```
+R returns NA instead of crashing because it treats looking past the end of a vector as a missing value. Your code keeps running, and R just gives you an NA placeholder.
+
+##PART C - Vector Operations and append()
+```{r}
+x <- c(1, 2, 3, 4)
+y <- c(10, 20, 30, 40)
+x + y
+x * 2
+```
+
+```{r}
+z <- c(1, 2, 3, 4, 5, 6)
+short <- c(1, 0)
+z + short
+```
+
+```{r}
+fruits <- c("apple", "banana", "cherry")
+fruits
+fruits <- append(fruits, "date")
+fruits
+fruits <- append(fruits, "kiwi", after = 1)
+fruits
+
+```
+
+##Question #8
+R recycles the shorter vector to match the longer one when adding vectors of different sizes. Because the longer vector length (6) is an exact multiple of the shorter one (2), R repeats the short vector three times perfectly without any warning or error.
+
+##Question #9
+```{r}
+z + c(1, 0, 1, 1)
+```
+R repeats the shorter vector to match the longer one. If the longer length divides evenly by the shorter (6 and 3), there’s no warning. If it doesn’t (6 and 4), the last repeat is cut off and R warns.
 
 
+##Part D - Lists: Creating and Subsetting
+
+```{r}
+student <- list(
+  name = "Maria Santos",
+  age = 20,
+  grades = c(88, 92, 79),
+  is_enrolled = TRUE
+)
+student
+```
+```{r}
+student["grades"]
+class(student[3])
+```
+
+```{r}
+student[["grades"]]
+class(student[["grades"]])
+```
+```{r}
+student$name
+```
+```{r}
+student$grades[2]
+```
+
+##Question #10
+```{r}
+class(student["grades"])
+class(student[["grades"]])
+```
+##Question #11
+A vector holds only one simple type, so [ ] is enough. A list can hold mixed types (strings, numbers, vectors, even other lists), so R needs [ ] to return a sub-list and [[ ]] to pull out the actual item inside.
+
+
+##Part E - Critical Thinking Challenge
+```{r}
+inventory <- list(
+  item = c("Notebook", "Pen", "Eraser"),
+  price = c(25.50, 10.00, 5.00),
+  in_stock = c(TRUE, TRUE, FALSE)
+)
+inventory$item[inventory$in_stock == TRUE]
+```
+```{r}
+inventory$item <- append(inventory$item, "Ruler")
+inventory
+inventory$price <- append(inventory$price, 15.00)
+inventory
+inventory$in_stock <- append(inventory$in_stock, TRUE)
+inventory
+```
+##Question #12
+1.) inventory$item pulls out the character vector c("Notebook", "Pen", "Eraser").
+
+2.)inventory$in_stock pulls out the logical vector c(TRUE, TRUE, FALSE). 
+
+3.)Inside the brackets, R uses the logical vector as a filter on the item vector, keeping positions marked TRUE.
+
+4.)This works because both vectors have the same length and the same order, so position 1 in in_stock describes position 1 in item. The result is "Notebook" "Pen".
+
+
+##Question #13
+Using a data frame or list keeps related data grouped together so rows cannot get scrambled. If you use separate vectors, sorting or deleting from one will mismatch the data across the others without any warning from R. Data frames prevent this by forcing equal lengths and ensuring that each row stays locked together during sorting and filtering.
+
+##Conclusion
+
+Vectors can only hold one type of data (like all numbers), while lists can hold a mix of different types at the same time. Choose a vector for simple, uniform datasets like a list of grades or temperature readings. Choose a list when you need to group complex or mismatched data together, such as combining text, numbers, and matrices under a single name.
 
 
 ## R Markdown
