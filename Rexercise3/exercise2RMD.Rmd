@@ -1,0 +1,101 @@
+---
+title: "EXERCISE 2"
+author: "Renzel john Dongon"
+date: "2026-10-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## PART A - CReating VECTORS:
+
+```{r}
+scores <- c(88, 92, 79, 95, 84)
+
+subject <- c("Math", "Science", "English", "History", "PE")
+
+scores
+subject
+```
+
+```{r}
+odds <- seq(1,19, by = 2)
+the <- seq(1,5, length.out = 5)
+
+odds
+the
+```
+
+```{r}
+rep(("A"), 4)
+rep(c("A", "B"), each = 2)
+rep(c("A", "B"), times = 2)
+```
+##QUESTION #1:
+
+#a
+```{r}
+age = c(15,28,32,36,27,18,52,39,42,29,35,31,27,22,37,34,19,20,57,49,50,37,46,25,17,12,42,53,41,51,35,24,33,8)
+
+
+length(age)
+```
+
+#b
+```{r}
+1/age
+
+```
+
+#c
+```{r}
+new_age <- c(age, 0, age)
+new_age
+
+```
+
+#d
+```{r}
+min(age)
+max(age)
+```
+
+##QUESTION #2
+
+```{r}
+rep(c("A", "B"), each = 2)
+rep(c("A", "B"), times = 2)
+```
+each repeats every individual element sequentially before moving to the next.
+times repeats the entire vector as a whole block.
+Would you like to see how these two arguments behave when they are combined together in a single function call?
+
+```{r}
+seq(1,2, by = 2) > seq(1, 20, length.out = 5)
+```
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
