@@ -112,7 +112,7 @@ No, it did not cause an error. paste0() automatically converts non-string inputs
 
 
 ```{r}
-"5" + 5
+#"5" + 5
 ```
 ```{r}
 as.numeric("5") + 5
