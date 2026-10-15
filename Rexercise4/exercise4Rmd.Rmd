@@ -1,0 +1,164 @@
+---
+title: "Exercise 3"
+author: "Renzel john Dongon"
+date: "2026-10-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Question 1:
+```{r}
+age <- c(34, 28, 22, 36, 27,
+         18, 52, 39, 42, 29,
+         35, 31, 27, 22, 37,
+         34, 19, 20, 57, 49,
+         50, 37, 46, 25, 17,
+         37, 43, 53, 41, 51,
+         35, 24, 33, 41, 53,
+         40, 18, 44, 38, 41,
+         48, 27, 39, 19, 30,
+         61, 54, 58, 26, 18)
+
+age
+```
+b#
+```{r}
+length(age)
+```
+c#
+```{r}
+max(age)
+min(age)
+```
+d#
+```{r}
+age[13:18]
+age[33:35]
+```
+e#
+```{r}
+age[-c(10, 20, 30, 40)]
+```
+f#
+```{r}
+age[c(4, 14, 24, 44)] <- 0
+age
+```
+
+Question 2:
+```{r}
+data(rivers)
+```
+a#
+```{r}
+length(rivers)
+sum(rivers)
+mean(rivers)
+median(rivers)
+var(rivers)
+sd(rivers)
+min(rivers)
+max(rivers)
+```
+b#
+```{r}
+rivers_summary <- c(length = length(rivers),
+                    sum    = sum(rivers),
+                    mean   = mean(rivers),
+                    median = median(rivers),
+                    var    = var(rivers),
+                    sd     = sd(rivers),
+                    min    = min(rivers),
+                    max    = max(rivers))
+
+rivers_summary
+```
+
+Question 3:
+a#
+```{r}
+power_ranking <- 1:25
+
+celebrity_name <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2",
+                    "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent",
+                    "Cast of the Sopranos", "Dan Brown", "Bruce Springsteen",
+                    "Donald Trump", "Muhammad Ali", "Paul McCartney",
+                    "George Lucas", "Elton John", "David Letterman",
+                    "Phil Mickelson", "J.K Rowling", "Bradd Pitt",
+                    "Peter Jackson", "Dr. Phil McGraw", "Jay Lenon",
+                    "Celine Dion", "Kobe Bryant")
+
+pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55,
+         40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+```
+b#
+```{r}
+# find J.K. Rowling's position in the vectors (it is the 19th element)
+rowling <- which(celebrity_name == "J.K Rowling")
+
+power_ranking[rowling] <- 15
+pay[rowling] <- 90
+
+power_ranking[rowling]
+pay[rowling]
+```
+
+Question 4:
+```{r}
+vegetables <- c("Carrot", "Cabbage", "Broccoli", "Spinach", "Tomato",
+                "Potato", "Onion", "Eggplant", "Cucumber", "Squash")
+
+vegetables
+```
+a#
+```{r}
+vegetables <- append(vegetables, c("Pechay", "Okra"))
+
+vegetables
+```
+b#
+```{r}
+length(vegetables)
+```
+c#
+```{r}
+vegetables <- append(vegetables,
+                     c("Kangkong", "Radish", "Pumpkin", "Garlic"),
+                     after = 5)
+
+vegetables
+```
+d#
+```{r}
+length(vegetables)
+```
+
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
