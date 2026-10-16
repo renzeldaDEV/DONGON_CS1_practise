@@ -4,4 +4,3 @@ sum = num1 + num2
 sum
 
 ave = sum / 2
-
