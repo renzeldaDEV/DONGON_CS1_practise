@@ -93,6 +93,12 @@ scores_v3
 ```
 
 ##Question #7
+```{r}
+test <- cbind(scores, c(85, 91, 100))
+test
+
+```
+
 cbind(scores, c(85, 91, 100)) gives a warning or error because the new column has 3 values but scores has only 2 rows, so R can’t line them up. cbind() and rbind() need matching dimensions because a matrix must be a perfect rectangle with no missing or extra cells.
 
 ##Question #8
