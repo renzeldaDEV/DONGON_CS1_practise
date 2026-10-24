@@ -1,0 +1,183 @@
+---
+title: "R-exercise-5"
+author: "Renzel john Dongon"
+date: "2026-10-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#Part A - Creating Matrices
+```{r}
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+print(m1)
+```
+
+```{r}
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(m2)
+```
+
+```{r}
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+print(scores)
+```
+##Question #1:
+The "brow = TRUE" changes the distribbution of sequence, if default it will go from top to bottom. 
+
+##Question #2:
+```{r}
+m3 <- matrix(1:8, nrow = 3, ncol = 3)
+print(m3)
+```
+It displayed a warning but it filled the missing part by the first number "1".
+
+#Part B - Subsetting Matrices
+```{r}
+scores[1, 2]
+scores[1, ]
+scores[, "Ben"]
+```
+
+```{r}
+scores[scores >= 90]
+```
+##Question #3
+class() returns "numeric" for both, because R drops a single row or column from a matrix down to a plain vector (drop = TRUE by default), since a length-1 dimension carries no extra information and a vector is simpler to work with.
+
+##Question #4
+A logical condition like scores >= 90 picks out individual cells scattered anywhere in the matrix, which can’t form a rectangular grid, so R returns a flat vector with no 2D shape or row/column names, whereas scores[1, ] selects a whole row so the column names still apply.
+
+#Part C - Matrix Properties and Operations
+```{r}
+dim(scores)
+nrow(scores)
+ncol(scores)
+```
+
+```{r}
+scores_t <- t(scores)
+scores_t
+```
+```{r}
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+a + b
+a * b
+```
+```{r}
+a %*% b
+a * b
+```
+
+##Question #5
+a * b multiplies each cell of a by the cell in the same position of b (so both must be the same size), while a %*% b multiplies rows of a by columns of b and adds up the products, giving a result with dimensions (m×n) × (n×p) = (m×p).
+
+##Question #6
+dim(scores) is r × c while dim(scores_t) is c × r, so rows and columns trade places. The names must swap too because they are labels attached to those dimensions, so each name has to stay with the data it described.
+
+#Part D - cbind() rbind()
+```{r}
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+scores_v2
+```
+
+```{r}
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+scores_v3
+```
+
+##Question #7
+cbind(scores, c(85, 91, 100)) gives a warning or error because the new column has 3 values but scores has only 2 rows, so R can’t line them up. cbind() and rbind() need matching dimensions because a matrix must be a perfect rectangle with no missing or extra cells.
+
+##Question #8
+Use rbind() when each update adds a new observation with the same variables, like daily sales where each new day is a new row under the same columns (Product A, B, C). Each row is one time point, so adding rows keeps the data organized as time goes on.
+
+#Part E - Arrays: Creating and Subsetting
+```{r}
+arr <- array(1:12, dim = c(2,3,2))
+arr
+
+```
+```{r}
+arr[1, 2, 2]
+arr[ , , 1]
+```
+```{r}
+dim(arr)
+```
+##Question #9
+dim(arr) gives the number of rows, columns, and layers (stacked grids of the same size), so arr[row, col, layer] picks one cell by its row, its column, and which layer it sits in.
+
+##Question #10
+Weekly quiz scores fit a 3D array, with students as rows, quizzes as columns, and each week as a layer. A single 2D matrix holds only one grid, so you’d need a separate matrix for every week instead of keeping everything in one structure.
+
+#Part F - critical Thinking Challenge
+```{r}
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+
+all_students <- rbind(class_a, class_b)
+all_students
+
+```
+```{r}
+rowMeans(all_students)
+```
+##Question #11
+I chose rbind() because S3 and S4 are new students, not new score columns, so they should be stacked as new rows. The clue was that both matrices share the same column names (Midterm, Final) but have different row names (S1, S2 vs. S3, S4), which means they describe different students measured on the same things.
+
+
+##Question #12
+I would stack all 5 matrices on top of each other with rbind(), since they all share the same 2 columns and each class adds new students as rows. To check, dim() should show 2 columns, and the number of rows should equal the total number of students across all 5 classes (for example, 5 classes of 2 students gives 10 × 2).
+
+
+
+
+#Conclusion
+A matrix has rows and columns, so it only has 2 dimensions, while an array can go beyond that and have lots of dimensions. A matrix is made for one table of data, and an array is used when you need to repeat the same table, like one per week. rbind() and cbind() are useful when your dataset keeps growing. For example, if I want to add new students with their grades, I can extend the data without rewriting everything, as long as the sizes match.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
