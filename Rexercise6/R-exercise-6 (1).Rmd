@@ -1,0 +1,178 @@
+---
+title: "Rexercise-6"
+author: "Renzel John Dongon"
+date: "2026-10-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part A - Creating Data Frames
+
+```{r}
+name <- c("Ana", "Ben", "Cid", "Dex", "Eli")
+age <- c(20, 21, 19, 22, 20)
+passed <- c(TRUE, TRUE, FALSE, TRUE, FALSE)
+name
+age
+passed
+```
+
+```{r}
+students <- data.frame(name = name, age = age, passed = passed)
+students
+```
+
+```{r}
+typeof(students$name)
+class(students$name)
+```
+
+```{r}
+courses <- data.frame(
+  course_code = c("IS101", "IS102", "IS103"),
+  units = c(3, 3, 2),
+  instructor = c("Dr. P. Reyes", "Dr. R. Santos", "Dr. S. Cruz")
+)
+courses
+```
+
+## Question #1
+
+A data frame is a table, so all of its columns need the same number of rows, or some cells would be empty. When the lengths differ, R stops with an error like "arguments imply differing number of rows: 3, 2".
+
+## Question #2
+
+A data frame is a list in which each element is a column, and lists can mix types, so different columns can have different types. However, each column is a vector, and a vector holds only one type. That is why all the values in a single column must match in type.
+
+# Part B - Subsetting Data Frames
+
+```{r}
+students$age
+students[["age"]]
+students["age"]
+```
+
+```{r}
+students[2, ]
+```
+
+```{r}
+students[3, "name"]
+```
+
+```{r}
+students[students$passed == TRUE, ]
+```
+
+```{r}
+students[students$passed == TRUE & students$age > 19, ]
+```
+
+## Question #3
+
+```{r}
+class(students$age)
+class(students[["age"]])
+class(students["age"])
+```
+
+`students$age` and `students[["age"]]` return `"numeric"`, which is the plain vector of ages. `students["age"]` returns a `"data.frame"`, since single brackets keep the structure and give back a smaller piece of it. This matches lists, where `[ ]` returns a list and `[[ ]]` returns the item itself.
+
+## Question #4
+
+The `&` operator checks the two logical vectors position by position, so a student gets TRUE only when both conditions are TRUE. R then keeps only the rows with TRUE. Using `|` would keep a student who meets either condition, so more rows would be returned.
+
+# Part C - Data Frame Properties
+
+```{r}
+str(students)
+```
+
+```{r}
+dim(students)
+nrow(students)
+ncol(students)
+```
+
+```{r}
+names(students)
+colnames(students)
+```
+
+```{r}
+summary(students)
+```
+
+## Question #5
+
+For age (numeric), `summary()` gives the minimum, quartiles, median, mean, and maximum. For passed (logical), it counts the FALSE and TRUE values, and for name (character), it shows only the length, class, and mode. A mean makes no sense for name because text cannot be added or averaged.
+
+## Question #6
+
+`str()` is better when you first load a data frame, because it shows the number of rows and columns, each column's type, and a preview of the values. `summary()` is better afterward, when you want statistics such as the mean, median, and counts to understand the values.
+
+# Part D - Data Frame Operations
+
+```{r}
+students$year_level <- c(2, 3, 1, 4, 2)
+students
+```
+
+```{r}
+students$passed <- NULL
+students
+```
+
+```{r}
+students[order(students$age), ]
+```
+
+```{r}
+students[order(students$age, decreasing = TRUE), ]
+```
+
+## Question #7
+
+```{r}
+students[students$passed == TRUE, ]
+```
+
+No, the filter does not work properly anymore because the `passed` column was removed. `students$passed` is now NULL, so the condition returns nothing and no rows come back, without an error. Every operation changes the data frame, so tracking its current columns helps avoid steps that quietly break or give wrong results.
+
+## Question #8
+
+First, `order(students$age)` returns the row numbers sorted from the youngest to the oldest student (for example, 3, 1, 5, 2, 4). Then `students[that vector, ]` picks the rows in that order, and the empty space after the comma keeps every column. Since entire rows move together, no student's data gets mixed up.
+
+# Part E - Critical Thinking Challenge
+
+```{r}
+grades <- data.frame(
+  name = c("Ana", "Ben", "Cid", "Dex", "Eli"),
+  midterm = c(85, 78, 92, 88, 70),
+  final = c(90, 82, 95, 84, 75)
+)
+
+grades$average <- (grades$midterm + grades$final) / 2
+grades
+```
+
+```{r}
+# The exercise does not give a passing grade, so 75 is assumed here
+grades$remarks <- ifelse(grades$average >= 75, "Passed", "Failed")
+grades
+```
+
+```{r}
+grades[grades$remarks == "Failed", c("name", "average")]
+```
+
+## Question #9
+
+I would first add a column for the change from midterm to final (`final - midterm`). Next, I would filter the students with "Failed" remarks and sort them by that change and by their midterm score. If most of them have a low midterm, that is the bigger factor, but if most of them have a big drop, the drop matters more.
+
+# Conclusion
+
+A data frame is a table made of vectors of equal length, one for each column. Since it is built like a list, the columns can have different data types, such as text in one and numbers in another. R uses it as the main structure for real-world tabular data because each row can represent one record and each column one measured detail.
