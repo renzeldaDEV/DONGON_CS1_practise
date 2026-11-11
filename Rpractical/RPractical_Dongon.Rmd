@@ -219,6 +219,49 @@ head(sorted_students, 3)
 
 
 
+E1
+```{r}
+students_all$section <- factor(students_all$section)
+students_all$sex <- factor(students_all$sex)
+
+levels(students_all$section)
+levels(students_all$sex)
+```
+
+E2
+```{r}
+table(students_all$sex)
+table(students_all$section)
+
+table(students_all$sex, students_all$section)
+
+```
+
+e3
+```{r}
+as.integer(students_all$sex)
+# The integers represent the internal numeric codes assigned to each factor level, mapping alphabetically (e.g., 1 for "F" and 2 for "M").
+
+```
+
+E4
+```{r}
+students_all$sex_label <- factor(students_all$sex, levels = c("F", "M"), labels = c("Female", "Male"))
+
+levels(students_all$sex_label)
+
+```
+
+E5
+```{r}
+summary(students_all$sex_label)
+
+mean(students_all$average[students_all$sex_label == "Female"])
+mean(students_all$average[students_all$sex_label == "Male"])
+
+```
+
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
