@@ -543,6 +543,45 @@ head(sorted_students, 3)</code></pre>
 ## 1  1 Alice   F       A      78    82         95   161.9   Honors    8
 ## 2  2 Bruno   M       B      85    79         88   161.9   Honors    7
 ## 3  3  Chen   M       A      92    96        100   161.9   Honors   10</code></pre>
+<p>E1</p>
+<pre class="r"><code>students_all$section &lt;- factor(students_all$section)
+students_all$sex &lt;- factor(students_all$sex)
+
+levels(students_all$section)</code></pre>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<pre class="r"><code>levels(students_all$sex)</code></pre>
+<pre><code>## [1] &quot;F&quot; &quot;M&quot;</code></pre>
+<p>E2</p>
+<pre class="r"><code>table(students_all$sex)</code></pre>
+<pre><code>## 
+## F M 
+## 4 4</code></pre>
+<pre class="r"><code>table(students_all$section)</code></pre>
+<pre><code>## 
+## A B C 
+## 4 3 3</code></pre>
+<pre class="r"><code>table(students_all$sex, students_all$section)</code></pre>
+<pre><code>##    
+##     A B C
+##   F 2 1 1
+##   M 1 2 1</code></pre>
+<p>e3</p>
+<pre class="r"><code>as.integer(students_all$sex)</code></pre>
+<pre><code>##  [1]  1  2  2  1  1  2  1  2 NA NA</code></pre>
+<pre class="r"><code># The integers represent the internal numeric codes assigned to each factor level, mapping alphabetically (e.g., 1 for &quot;F&quot; and 2 for &quot;M&quot;).</code></pre>
+<p>E4</p>
+<pre class="r"><code>students_all$sex_label &lt;- factor(students_all$sex, levels = c(&quot;F&quot;, &quot;M&quot;), labels = c(&quot;Female&quot;, &quot;Male&quot;))
+
+levels(students_all$sex_label)</code></pre>
+<pre><code>## [1] &quot;Female&quot; &quot;Male&quot;</code></pre>
+<p>E5</p>
+<pre class="r"><code>summary(students_all$sex_label)</code></pre>
+<pre><code>## Female   Male    NAs 
+##      4      4      2</code></pre>
+<pre class="r"><code>mean(students_all$average[students_all$sex_label == &quot;Female&quot;])</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mean(students_all$average[students_all$sex_label == &quot;Male&quot;])</code></pre>
+<pre><code>## [1] NA</code></pre>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
 <p>This is an R Markdown document. Markdown is a simple formatting
