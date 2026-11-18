@@ -1,0 +1,235 @@
+---
+title: "Rpractical-2"
+author: "Renzel john Dongon"
+date: "2026-11-18"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Part A: Importing and Inspecting a CSV
+
+
+
+A1:
+```{r}
+emp_df <- read.csv("employees.csv", stringsAsFactors = FALSE)
+```
+
+A2:
+```{r}
+head(df)
+```
+
+A3:
+```{r}
+
+dim(emp_df)
+
+
+sapply(emp_df, class)
+```
+
+A4:
+```{r}
+mean(emp_df[["salary"]])
+max(emp_df[["age"]])
+
+table(emp_df[["department"]])
+```
+
+Part B: Creating Data Frames
+
+B1:
+```{r}
+new_hires <- data.frame(
+  emp_id = c(21, 22, 23),
+  name = c("Uma", "Victor", "Wen"),
+  department = c("HR", "IT", "Sales"),
+  sex = c("F", "M", "F"),
+  age = c(28, 37, 33),
+  salary = c(45000, 83000, 60000),
+  years_service = c(2, 9, 6),
+  rating = c(3, 4, 5),
+  stringsAsFactors = FALSE
+)
+
+new_hires
+
+```
+
+B2:
+```{r}
+emp_all <- rbind(emp_df, new_hires)
+dim(emp_all)
+```
+
+B3:
+```{r}
+emp_all$bonus <- round(emp_all$salary * 0.05)
+emp_all
+```
+
+Part C: Subsetting
+
+C1:
+```{r}
+print(emp_all[1:5, c("name", "salary")])
+```
+
+C2:
+```{r}
+print(emp_all[emp_all$salary > 70000, ])
+```
+
+C3:
+```{r}
+print(subset(emp_all, department == "IT" & years_service >= 5, select = c(name, years_service, salary)))
+```
+
+C4:
+```{r}
+idx <- which(emp_all$age > 50)
+print(idx)
+print(emp_all$name[idx])
+
+```
+
+
+C5:
+```{r}
+print(head(emp_all[, -c(1, 9)], 3))
+
+```
+
+C6:
+```{r}
+print(emp_all$salary[emp_all$name == "Mia"])
+```
+
+Part D: Factors
+D1:
+```{r}
+emp_all[["department"]] <- factor(emp_all[["department"]])
+emp_all[["sex"]] <- factor(emp_all[["sex"]])
+print(levels(emp_all[["department"]]))
+print(levels(emp_all[["sex"]]))
+```
+
+D2:
+```{r}
+print(table(emp_all[["department"]]))
+print(table(emp_all[["department"]], emp_all[["sex"]]))
+
+```
+
+D3:
+```{r}
+emp_all[["rating_level"]] <- factor(emp_all[["rating"]], 
+                                    levels = 1:5, 
+                                    labels = c("Poor", "Fair", "Good", "Very Good", "Excellent"), 
+                                    ordered = TRUE)
+print(table(emp_all[["rating_level"]]))
+
+```
+
+D4:
+```{r}
+for (dept in levels(emp_all[["department"]])) {
+  mean_sal <- round(mean(emp_all[["salary"]][emp_all[["department"]] == dept]))
+  print(paste(dept, ":", mean_sal))
+}
+```
+
+
+Part E: Conditional Statements
+
+E1:
+```{r}
+emp_all[["salary_band"]] <- ifelse(emp_all[["salary"]] >= 70000, "High",
+                            ifelse(emp_all[["salary"]] >= 50000, "Medium", "Low"))
+print(table(emp_all[["salary_band"]]))
+
+```
+E2:
+```{r}
+emp_all[["level"]] <- ifelse(emp_all[["years_service"]] >= 8, "Senior", "Junior")
+print(table(emp_all[["level"]]))
+```
+
+E3:
+```{r}
+raise_pct <- function(rating) {
+  if (rating == 5) {
+    return(0.10)
+  } else if (rating == 4) {
+    return(0.07)
+  } else if (rating == 3) {
+    return(0.04)
+  } else {
+    return(0)
+  }
+}
+
+emp_all[["raise"]] <- sapply(emp_all[["rating"]], raise_pct)
+emp_all[["new_salary"]] <- round(emp_all[["salary"]] * (1 + emp_all[["raise"]]))
+print(emp_all[1:5, c("name", "rating", "raise", "new_salary")])
+```
+
+E4:
+```{r}
+total <- sum(emp_all[["new_salary"]])
+if (total < 1600000) {
+  print("Budget OK")
+} else {
+  print("Over budget")
+}
+print(total)
+```
+
+Part F: Conditional Statements
+F1:
+```{r}
+print(head(sort(emp_all[["salary"]], decreasing = TRUE), 5))
+print(head(sort(emp_all[["name"]]), 5))
+
+```
+
+F2:
+```{r}
+by_salary <- emp_all[order(emp_all[["salary"]], decreasing = TRUE), ]
+print(by_salary[1:5, c("name", "department", "salary")])
+```
+
+
+
+
+
+
+
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
